@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>gQuery - like jQuery, but Greater!</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/codemirror.css">
+
+<style type="text/css">
+  .CodeMirror {
+    background-color: rgb(245, 245, 245);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+</style>
+
+  <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+  <script src="js/jsBasic.js"></script>
+  <script src="js/codemirror-compressed-js-only.js"></script>
+
+
+
+
+  <script type="text/javascript">
+
+    //$( document ).ready(function() { var inputs = $("vmsBasic");
+
+   // inputs.each( function() { var $element = $(this);  });
+
+    var program; 
+
+    try {
+      program = basic.compile('10 LET X = 200' +
+'\n' + '20 LET Y = 40' +
+'\n' + '30 PRINT X + Y');
+
+    } catch (e) {
+      alert(e);
+    }
+
+  //alert(program);
+
+  var result;
+
+  var tty = function(){};
+  tty.writeString = function() {//alert(arguments[0]);
+  };
+  var env = { tty: tty };
+  program.init(env);
+
+  env.tty.writeString();
+
+    
+var stopped = false;
+function driver() {
+    var state = basic.STATE_RUNNING;
+
+    while (!stopped && state === basic.STATE_RUNNING ) {
+
+      try {
+        state = program.step(driver);
+      } catch (e) {
+        console.log(e);
+        alert(e.message ? e.message : e);
+        stopped = true;
+        return;
+      }
+    }
+
+    if (state === basic.STATE_STOPPED || stopped) {
+      stopped = true;
+    } else if (state === basic.STATE_BLOCKED) {
+      // Fall out
+    } else { // state === basic.STATE_RUNNING
+      setTimeout(driver, 0); // Keep going
+    }
+  }
+
+driver();
+
+//alert(program);
+
+  </script>
+
+  </head>
+  <body>
+      <div class="container">
+
+        <div class="page-header">
+          <h1>gQuery</h1>
+          <p class="lead">like jQuery, but greater!</p>
+          <p>
+          <i>gQuery</i> is a jQuery-like javascript library, that offers a migration path away from legacy financial industry systems. It makes things like HTML document traversal and manipulation, migrating and interpoing with legacy code, and migrating legacy databases,  much simpler with an easy-to-use API that works across a multitude of browsers. It's a sensible nirvana we can aim for down the track!
+          </p>
+          <p>Just like jQuery exposes functionality via the dollar sign ($), gQuery uses a triangle (Δ)instead. The triangle is represented in code by the Greek letter Delta.</p>
+        </div>
+
+<h3>A Breif Look</h3>
+
+<div id="Example1">
+  <h4>Shit it in</h4>
+  <p>Get the div element with the class 'jumbotron' and 'shit' the HTML "I LOVE Δ!" into it.</p>
+  <pre>Δ( "div.jumbotron" ).ShitItIn( "I LOVE Δ!" );</pre>
+</div> 
+
+<div>
+  <h4>Advanced Financial Functions</h4>
+  <p>Rounds a float using the high precision GW-Rounding technique.</p>
+  <pre>Δ.GWRound(7.243)</pre>
+</div>  
+
+<div>
+  <h4>Relational Database</h4>
+  <p>A key value store</p>
+  <pre>Δ.RDB["key"] = value;</pre>
+</div> 
+
+<div>
+  <h4>Executing Legacy Code</h4>
+  <textarea id="demotext">
+var legacyCode = 
+"10 LET X = 200" +
+"20 LET Y = 40" +
+"30 PRINT X + Y";
+
+var output =  Δ.VmsBasic(legacyCode);
+
+alert(output); //Displays 240
+</textarea>
+</div>
+
+<div id="vmsBasic">
+
+
+</div> 
+
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
+    mode: "javascript"
+  });
+</script>
+
+  <script type="text/javascript">
+
+
+  Δ = $;
+  
+
+  Δ.fn.shitItIn = function(text) {
+      return this.each( function() {
+            $(this).append(text);
+        });
+
+
+
+
+  }
+ 
+Δ( "#Example1" ).shitItIn("We've shit it in");
+
+  
+
+</script>
+
+  </body>
+</html>
