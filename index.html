@@ -59,10 +59,27 @@
           </p>
           <p>Just like jQuery exposes functionality via the dollar sign (<code>$</code>), gQuery uses a triangle (<code>Δ</code>)instead. The triangle is represented in code by the Greek letter Delta.</p>
 
+<div id="Example1">
+  <h4>Shit it in</h4>
+  <p>Get the div element with the class 'jumbotron' and 'shit' the HTML "I LOVE Δ!" into it.</p>
+   <textarea>Δ( "div.jumbotron" ).ShitItIn( "I LOVE Δ!" );</textarea>
+</div> 
+
+<div>
+  <h4>Advanced Financial Functions</h4>
+  <p>Rounds a float using the high precision GW-Rounding technique.</p>
+  <textarea>Δ.GWRound(7.243)</textarea>
+</div>  
+
+<div>
+  <h4>Relational Database</h4>
+  <p>A key value store</p>
+  <textarea>Δ.RDB["key"] = value;</textarea>
+</div> 
 
 <div>
   <h4>Executing Legacy Code</h4>
-  <textarea id="demotext" rows="10">
+  <textarea>
 var legacyCode = 
 "10 LET X = 200" +
 "20 LET Y = 40" +
@@ -73,6 +90,8 @@ var output =  Δ.VmsBasic(legacyCode);
 alert(output); //Displays 240
 </textarea>
 </div>
+
+
 
 <p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
 
@@ -109,8 +128,13 @@ alert(output); //Displays 240
 
 
 <script>
-  var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
-    mode: "javascript"
+
+  var textareas = $("textarea");
+
+  textareas.each( function() {
+    var editor = CodeMirror.fromTextArea(this, {
+      mode: "javascript"
+    });
   });
 </script>
 
